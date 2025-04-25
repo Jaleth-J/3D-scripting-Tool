@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>3D Scene Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+      }
+    }
+    </script>
+</head>
+<body>
+  <header>
+    <h1>🎬 3D Scene Scripting Tool</h1>
+    <p>Visualisiere deine Szene mit einfachen Befehlen</p>
+  </header>
+
+  <div id="view-controls">
+    <button id="gridToggle" title="Raster anzeigen">📐</button>
+    <button id="freeCamToggle" title="Freie Kamera steuern">🎮</button>
+    <button id="labelToggle" title="Objektnamen anzeigen">🏷️</button>
+  </div>
+
+  <div id="canvas-wrapper">
+    <div id="view-controls">
+      
+    </div>
+    <canvas id="canvas3d"></canvas>
+  </div>
+  
+
+  <div id="code-bar">
+    <button id="toggle-history" onclick="toggleHistory()">📜 Verlauf anzeigen</button>
+    <div id="command-history"></div>
+    <div id="input-line">
+      <button id="run-button" onclick="runCommands()">▶ Ausführen</button>
+      <textarea id="commandInput" placeholder="CREATE CUBE SIZE 2 2 2;
+  NAME CUBE Box1;" onkeydown="resizeInput(event)"></textarea>
+    </div>
+    <button onclick="exportSceneAsJSON()">💾 Szene exportieren</button>
+  </div>
+  
+  </div>
+  <div id="storyboard-container">
+    <h2 style="text-align: center; color: #ff4e28;">📓 Storyboard</h2>
+    
+  </div>
+  
+
+  <script type="module" src="main.js"></script>
+  <script>
+    function toggleHistory() {
+      const history = document.getElementById('command-history');
+      history.style.display = history.style.display === 'block' ? 'none' : 'block';
+    }
+    function resizeInput(e) {
+      const input = e.target;
+      if (e.key === 'Enter' && e.shiftKey) {
+        setTimeout(() => {
+          input.style.height = "auto";
+          input.style.height = (input.scrollHeight) + "px";
+        }, 0);
+      }
+    }
+  </script>
+</body>
+</html>
